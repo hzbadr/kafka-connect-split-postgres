@@ -1,0 +1,10 @@
+FROM confluentinc/cp-kafka-connect:6.2.0
+
+# Download the JDBC connector
+RUN confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.0.0
+
+# Download the PostgreSQL JDBC driver
+RUN curl -o /usr/share/java/postgresql-42.7.3.jar https://jdbc.postgresql.org/download/postgresql-42.7.3.jar
+
+# Ensure the plugin path includes the installed connectors and the JDBC driver
+ENV CONNECT_PLUGIN_PATH="/usr/share/java,/usr/share/confluent-hub-components"

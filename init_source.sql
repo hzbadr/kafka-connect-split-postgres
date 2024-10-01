@@ -1,0 +1,12 @@
+CREATE TABLE source_table (
+    id SERIAL PRIMARY KEY,
+    category VARCHAR(50) NOT NULL,
+    value INT,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO source_table (category, value, updated_at) VALUES
+('A', 10, CURRENT_TIMESTAMP),
+('B', 20, CURRENT_TIMESTAMP),
+('A', 30, CURRENT_TIMESTAMP),
+('B', 40, CURRENT_TIMESTAMP);
