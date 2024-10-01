@@ -16,6 +16,7 @@
     "insert.mode.databaselevel": true,
     "table.name.format": "tides_table",
     "table.types": "TABLE",
-    "dialect.name": "PostgreSqlDatabaseDialect"
+    "dialect.name": "PostgreSqlDatabaseDialect",
+    "batch.size": "1000"
   }
 }
