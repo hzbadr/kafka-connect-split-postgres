@@ -1,6 +1,7 @@
+curl -X POST -H "Content-Type: application/json" --data @jdbc-source-connector.json http://localhost:8083/connectors
 curl -X POST -H "Content-Type: application/json" --data @jdbc-sink-connector-a.json http://localhost:8083/connectors
 curl -X POST -H "Content-Type: application/json" --data @jdbc-sink-connector-b.json http://localhost:8083/connectors
-curl -X POST -H "Content-Type: application/json" --data @jdbc-source-connector.json http://localhost:8083/connectors
+
 
 docker-compose exec postgres_a psql -U user -d db_a -c "SELECT * FROM tides_table;"
 docker-compose exec postgres_b psql -U user -d db_b -c "SELECT * FROM tides_table;"
