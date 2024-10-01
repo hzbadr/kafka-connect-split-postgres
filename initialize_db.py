@@ -13,7 +13,7 @@ INSERT INTO source_table (category, value, updated_at) VALUES
 """)
 
     # Generate 10,000 records following the specified pattern
-    for i in range(1, 100001):
+    for i in range(1, 1000001):
         if i % 4 == 1:
             file.write("('A', 10, CURRENT_TIMESTAMP),\n")
         elif i % 4 == 2:
