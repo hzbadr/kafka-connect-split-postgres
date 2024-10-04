@@ -1,6 +1,0 @@
-CREATE TABLE stream_b (
-    id SERIAL PRIMARY KEY,
-    category VARCHAR(50) NOT NULL,
-    value INT,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
