@@ -31,7 +31,7 @@ CREATE STREAM source_stream (
 ) WITH (
     KAFKA_TOPIC='jdbc-source_table',
     VALUE_FORMAT='AVRO',
-    PARTITIONS=2
+    PARTITIONS=1
 );
 source_stream
 
@@ -54,12 +54,6 @@ WHERE category = 'B';
 stream_b
 
 
-SELECT * FROM source_stream EMIT CHANGES;
-SELECT * FROM stream_a EMIT CHANGES;
-SELECT * FROM stream_b EMIT CHANGES;
-
-
-
 
 docker-compose exec postgres_source psql -U user -d testdb
 docker-compose exec postgres_a psql -U user -d db_a
@@ -80,6 +74,10 @@ curl -X DELETE http://localhost:8083/connectors/jdbc-sink-connector-b
 
 ## Verical split
 
+SELECT * FROM source_stream EMIT CHANGES;
+SELECT * FROM stream_a EMIT CHANGES;
+SELECT * FROM stream_b EMIT CHANGES;
+
 <<source_stream
 DROP STREAM IF EXISTS source_stream;
 
@@ -91,18 +89,18 @@ CREATE STREAM source_stream (
 ) WITH (
     KAFKA_TOPIC='jdbc-source_table',
     VALUE_FORMAT='AVRO',
-    PARTITIONS=2
+    PARTITIONS=1
 );
 source_stream
 
 <<ver_a
 CREATE STREAM stream_a AS
-SELECT id AS "id", category as "category", updated_at AS "updated_at"
+SELECT AS_VALUE(id) as "source_id", AS_VALUE(value) AS "score", AS_VALUE(updated_at) AS "updated_at"
 FROM source_stream;
 ver_a
 
 <<ver_b
 CREATE STREAM stream_b AS
-SELECT id as "id", value AS "score", updated_at AS "updated_at"
+SELECT AS_VALUE(id) AS "source_id", AS_VALUE(category) as "category", AS_VALUE(updated_a) AS "updated_at"
 FROM source_stream;
 ver_b

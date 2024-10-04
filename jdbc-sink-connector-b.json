@@ -9,13 +9,16 @@
     "connection.password": "password",
     "auto.create": "true",
     "auto.evolve": "true",
-    "pk.mode": "none",
     "value.converter": "io.confluent.connect.avro.AvroConverter",
     "value.converter.schema.registry.url": "http://schema-registry:8081",
-    "insert.mode": "insert",
     "insert.mode.databaselevel": true,
-    "table.name.format": "tides_table",
+    "table.name.format": "table_b",
+    "insert.mode": "upsert",
+    "pk.mode": "record_value",
+    "pk.fields": "source_id",
     "table.types": "TABLE",
-    "dialect.name": "PostgreSqlDatabaseDialect"
+    "dialect.name": "PostgreSqlDatabaseDialect",
+    "fields.whitelist": "source_id, category, updated_at",
+    "batch.size": "1000"
   }
 }

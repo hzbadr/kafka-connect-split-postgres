@@ -1,4 +1,4 @@
-FROM confluentinc/cp-kafka-connect:6.2.0
+FROM confluentinc/cp-kafka-connect:latest
 
 # Download the JDBC connector
 RUN confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.0.0

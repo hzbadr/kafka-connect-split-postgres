@@ -136,6 +136,9 @@ services:
       POSTGRES_DB: db_a
     ports:
       - "5413:5432"
+    volumes:
+      - ./init_sink_a.sql:/docker-entrypoint-initdb.d/init.sql
+
 
   postgres_b:
     image: postgres:13
@@ -145,3 +148,5 @@ services:
       POSTGRES_DB: db_b
     ports:
       - "5414:5432"
+    volumes:
+      - ./init_sink_b.sql:/docker-entrypoint-initdb.d/init.sql
