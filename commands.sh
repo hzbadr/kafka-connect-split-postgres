@@ -82,10 +82,10 @@ SELECT * FROM stream_b EMIT CHANGES;
 DROP STREAM IF EXISTS source_stream;
 
 CREATE STREAM source_stream (
-    id INT,
-    category VARCHAR,
-    value INT,
-    updated_at TIMESTAMP
+    "id" INT,
+    "category" VARCHAR,
+    "value" INT,
+    "updated_at" TIMESTAMP
 ) WITH (
     KAFKA_TOPIC='jdbc-source_table',
     VALUE_FORMAT='AVRO',
@@ -95,12 +95,16 @@ source_stream
 
 <<ver_a
 CREATE STREAM stream_a AS
-SELECT AS_VALUE(id) as "source_id", AS_VALUE(value) AS "score", AS_VALUE(updated_at) AS "updated_at"
+SELECT AS_VALUE("id") as "source_id", AS_VALUE("value") AS "value", AS_VALUE("updated_at") AS "updated_at"
 FROM source_stream;
 ver_a
 
 <<ver_b
 CREATE STREAM stream_b AS
-SELECT AS_VALUE(id) AS "source_id", AS_VALUE(category) as "category", AS_VALUE(updated_a) AS "updated_at"
+SELECT AS_VALUE("id") AS "source_id", AS_VALUE("category") as "category", AS_VALUE("updated_at") AS "updated_at"
 FROM source_stream;
 ver_b
+
+
+ALTER TABLE table_a ADD CONSTRAINT unique_source_id UNIQUE (source_id);
+ALTER TABLE table_b ADD CONSTRAINT unique_source_id UNIQUE (source_id);
