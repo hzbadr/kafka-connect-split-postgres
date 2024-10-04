@@ -97,12 +97,12 @@ source_stream
 
 <<ver_a
 CREATE STREAM stream_a AS
-SELECT id, category
+SELECT id AS "id", category as "category", updated_at AS "updated_at"
 FROM source_stream;
 ver_a
 
 <<ver_b
 CREATE STREAM stream_b AS
-SELECT id, value AS score, updated_at
+SELECT id as "id", value AS "score", updated_at AS "updated_at"
 FROM source_stream;
 ver_b
