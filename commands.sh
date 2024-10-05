@@ -22,7 +22,7 @@ CREATE STREAM source_stream (
 );
 source_stream
 
-<<streams
+<<sink_streams
 CREATE STREAM stream_a AS
 SELECT "id" as "source_id", "value", "updated_at"
 FROM source_stream;
@@ -30,7 +30,7 @@ FROM source_stream;
 CREATE STREAM stream_b AS
 SELECT "id" AS "source_id", "category", "updated_at"
 FROM source_stream;
-streams
+sink_streams
 
 SELECT * FROM source_stream EMIT CHANGES;
 SELECT * FROM stream_a EMIT CHANGES;
@@ -41,6 +41,7 @@ curl -X POST -H "Content-Type: application/json" --data @jdbc-sink-connector-a.j
 curl -X POST -H "Content-Type: application/json" --data @jdbc-sink-connector-b.json http://localhost:8083/connectors
 
 # Source should be last
+curl -X DELETE http://localhost:8081/subjects/jdbc-source_table-value/versions/1
 curl -X POST -H "Content-Type: application/json" --data @jdbc-source-connector.json http://localhost:8083/connectors
 
 
