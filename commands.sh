@@ -90,3 +90,10 @@ kafka-consumer-groups --bootstrap-server localhost:9092 --group _confluent-ksql-
 kafka-consumer-groups --bootstrap-server localhost:9092 --group connect-jdbc-sink-connector-a --describe
 kafka-consumer-groups --bootstrap-server localhost:9092 --group _confluent-ksql-default_query_CSAS_STREAM_B_5 --describe
 kafka-consumer-groups --bootstrap-server localhost:9092 --group _confluent-controlcenter-7-6-0-1-command --describe
+
+
+SET 'auto.offset.reset' = 'earliest';
+
+# TODOs:
+# write avcs file with the correct schema.
+# SELECT only specific columns in the source connector.
